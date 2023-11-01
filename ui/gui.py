@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from utils.preprocessing import *
 
 
 def main_GUI():
@@ -46,9 +47,15 @@ def main_GUI():
                 command=lambda: clicked_button(algorithm_var.get())).pack()
     Radiobutton(master, text="Adaline", variable=algorithm_var, value=2,
                 command=lambda: clicked_button(algorithm_var.get())).pack()
+
+    button = Button(master, text="Display",command=display_fun)
+    button.pack()
     master.mainloop()
 
 
 def clicked_button(val):
     global num
     num = val
+
+def display_fun():
+    DataSplit()

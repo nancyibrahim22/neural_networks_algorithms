@@ -48,7 +48,7 @@ def main_GUI():
     Radiobutton(master, text="Adaline", variable=algorithm_var, value=2,
                 command=lambda: clicked_button(algorithm_var.get())).pack()
 
-    button = Button(master, text="Display",command=display_fun)
+    button = Button(master, text="Display",command=lambda:display_fun(classes_var.get()))
     button.pack()
     master.mainloop()
 
@@ -57,5 +57,11 @@ def clicked_button(val):
     global num
     num = val
 
-def display_fun():
-    DataSplit()
+def display_fun(classes_var):
+    radio=classes_var
+    if radio==1:
+      DataSplit('bomay','cali')
+    elif radio==2:
+        DataSplit('bomay','sira')
+    elif radio==3:
+        DataSplit('cali','sira')

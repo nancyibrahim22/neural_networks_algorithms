@@ -23,12 +23,14 @@ def DataSplit(class1,class2):
 
 
 
-    if class1 == "sira" and class2 =='cali' or class2 == "sira" and class1 =='cali':
-        return x_sira_train, y_sira_train, x_sora_test, y_sira_test,x_cali_train, y_cali_train, x_cali_test, y_cali_test
+    if class2 == "sira" and class1 =='cali' :
+        return x_cali_train, y_cali_train, x_cali_test, y_cali_test,x_sira_train, y_sira_train, x_sora_test, y_sira_test
     elif class1=='bomay' and class2=='sira' or class2=='bomay' and class1=='sira':
         return x_bomay_train, y_bomay_train, x_bomay_test, y_bomay_test,x_sira_train, y_sira_train, x_sora_test, y_sira_test
     elif class1=='bomay' and class2=='cali' or class2=='bomay' and class1=='cali':
         return x_bomay_train, y_bomay_train, x_bomay_test, y_bomay_test,x_cali_train, y_cali_train, x_cali_test, y_cali_test
+
+
 
 
 def x_and_y(data):

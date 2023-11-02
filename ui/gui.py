@@ -60,5 +60,8 @@ def clicked_button(val):
 def display_fun(classes_var):
     radio=classes_var
     if radio==1:
-      x,y,x1,y2,x3,y3,x4,y4=DataSplit('bomay','cali')
-      print(x)
+      DataSplit('bomay','cali')
+    elif radio==2:
+        DataSplit('bomay','sira')
+    elif radio==3:
+        DataSplit('cali','sira')

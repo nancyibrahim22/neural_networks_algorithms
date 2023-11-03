@@ -4,4 +4,4 @@ from algorithms.adaline import *
 #Hello_test_git
 #test2
 main_GUI()
-adaline()
+#Adaline()

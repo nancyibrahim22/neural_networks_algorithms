@@ -24,11 +24,11 @@ def DataSplit(class1,class2):
 
 
 
-    if class1 == "sira" and class2 =='cali'or class2 == "sira" and class1 =='cali' :
+    if class1 == "SIRA" and class2 =='CALI'or class2 == "SIRA" and class1 =='CALI' :
         return merge_class(x_sira_train, x_sira_test, y_sira_train, y_sira_test, x_cali_train, x_cali_test,y_cali_train, y_cali_test)
-    elif class1=='bomay' and class2=='sira' or class2=='bomay' and class1=='sira':
+    elif class1=='BOMBAY' and class2=='SIRA' or class2=='BOMBAY' and class1=='SIRA':
         return merge_class(x_bomay_train, x_bomay_test, y_bomay_train, y_bomay_test, x_sira_train, x_sira_test,y_sira_train, y_sira_test)
-    elif class1=='bomay' and class2=='cali' or class2=='bomay' and class1=='cali':
+    elif class1=='BOMBAY' and class2=='CALI' or class2=='BOMBAY' and class1=='CALI':
         return merge_class(x_bomay_train,x_bomay_test, y_bomay_train,  y_bomay_test, x_cali_train,x_cali_test, y_cali_train,y_cali_test)
 
 

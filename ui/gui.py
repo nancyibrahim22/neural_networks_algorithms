@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import messagebox
-from utils.preprocessing import *
 from algorithms.adaline import *
 from algorithms.perceptron import *
 
@@ -9,65 +8,74 @@ def main_GUI():
     global eta_entry, epochs_entry, mse_entry
     master = Tk()
     master.title("Neural Networks Tasks")
-    master.geometry("1000x1000")
+    master.geometry("500x550")
     title_label = Label(master, text="Neural Networks Task 1")
-    title_label.pack()
+    title_label.config(font=("Arial", 14), fg="red")
+    title_label.grid(row=1, column=5)
 
     features_label = Label(master,text="Choose 2 features")
-    features_label.pack()
+    features_label.config(font=("Arial", 10), fg="blue")
+    features_label.grid(row=2,column=5)
+
     first_features_var = IntVar()
-    Radiobutton(master, text="Area",variable=first_features_var,value=0).pack()
-    Radiobutton(master, text="Perimeter", variable=first_features_var, value=1).pack()
-    Radiobutton(master, text="MajorAxisLength", variable=first_features_var, value=2).pack()
-    Radiobutton(master, text="MinorAxisLength", variable=first_features_var, value=3).pack()
-    Radiobutton(master, text="roundnes", variable=first_features_var, value=4).pack()
+    Radiobutton(master, text="Area",variable=first_features_var,value=0).grid(row=3,column=4)
+    Radiobutton(master, text="Perimeter", variable=first_features_var, value=1).grid(row=4,column=4)
+    Radiobutton(master, text="MajorAxisLength", variable=first_features_var, value=2).grid(row=5,column=4)
+    Radiobutton(master, text="MinorAxisLength", variable=first_features_var, value=3).grid(row=6,column=4)
+    Radiobutton(master, text="roundnes", variable=first_features_var, value=4).grid(row=7,column=4)
 
     second_features_var = IntVar()
-    Radiobutton(master, text="Area", variable=second_features_var, value=0).pack()
-    Radiobutton(master, text="Perimeter", variable=second_features_var, value=1).pack()
-    Radiobutton(master, text="MajorAxisLength", variable=second_features_var, value=2).pack()
-    Radiobutton(master, text="MinorAxisLength", variable=second_features_var, value=3).pack()
-    Radiobutton(master, text="roundnes", variable=second_features_var, value=4).pack()
+    Radiobutton(master, text="Area", variable=second_features_var, value=0).grid(row=3,column=6)
+    Radiobutton(master, text="Perimeter", variable=second_features_var, value=1).grid(row=4,column=6)
+    Radiobutton(master, text="MajorAxisLength", variable=second_features_var, value=2).grid(row=5,column=6)
+    Radiobutton(master, text="MinorAxisLength", variable=second_features_var, value=3).grid(row=6,column=6)
+    Radiobutton(master, text="roundnes", variable=second_features_var, value=4).grid(row=7,column=6)
 
-    classes_label = Label(master, text="choose 2 classes")
-    classes_label.pack()
+    classes_label = Label(master, text="Choose 2 classes")
+    classes_label.config(font=("Arial", 10), fg="blue")
+    classes_label.grid(row=8,column=5)
     classes_var = IntVar()
-    Radiobutton(master, text="Bombay, Cali", variable=classes_var, value=1).pack()
-    Radiobutton(master, text="Bombay, Sira", variable=classes_var, value=2).pack()
-    Radiobutton(master, text="Cali, Sira", variable=classes_var, value=3).pack()
+    Radiobutton(master, text="Bombay, Cali", variable=classes_var, value=1).grid(row=9,column=5)
+    Radiobutton(master, text="Bombay, Sira", variable=classes_var, value=2).grid(row=10,column=5)
+    Radiobutton(master, text="Cali, Sira", variable=classes_var, value=3).grid(row=11,column=5)
 
     eta_label = Label(master, text="enter learning rate")
-    eta_label.pack()
+    eta_label.config(font=("Arial", 10), fg="blue")
+    eta_label.grid(row=12,column=4)
     eta_entry = Entry(master, width=20, borderwidth=3)
-    eta_entry.pack()
+    eta_entry.grid(row=12,column=5)
 
     epochs_label = Label(master, text="enter number of epochs")
-    epochs_label.pack()
+    epochs_label.config(font=("Arial", 10), fg="blue")
+    epochs_label.grid(row=13,column=4)
     epochs_entry = Entry(master, width=20, borderwidth=3)
-    epochs_entry.pack()
+    epochs_entry.grid(row=13,column=5)
 
     mse_label = Label(master, text="enter MSE threshold")
-    mse_label.pack()
+    mse_label.config(font=("Arial", 10), fg="blue")
+    mse_label.grid(row=14,column=4)
     mse_entry = Entry(master, width=20, borderwidth=3)
-    mse_entry.pack()
+    mse_entry.grid(row=14,column=5)
 
     bias_var = IntVar()
     bias_check = Checkbutton(master, text="Bias", variable=bias_var)
-    bias_check.pack()
+    bias_check.grid(row=15,column=5)
 
-    algorithm_label = Label(master, text="choose the used algorithm")
-    algorithm_label.pack()
+    algorithm_label = Label(master, text="Choose the used algorithm")
+    algorithm_label.config(font=("Arial", 10), fg="blue")
+    algorithm_label.grid(row=16,column=5)
     algorithm_var = IntVar()
-    Radiobutton(master, text="Perceptron", variable=algorithm_var, value=1).pack()
-    Radiobutton(master, text="Adaline", variable=algorithm_var, value=2).pack()
+    Radiobutton(master, text="Perceptron", variable=algorithm_var, value=1).grid(row=17,column=5)
+    Radiobutton(master, text="Adaline", variable=algorithm_var, value=2).grid(row=18,column=5)
 
-    button = Button(master, text="Display",command=lambda:display_fun(first_features_var.get(),second_features_var.get(), classes_var.get(),algorithm_var.get(),
+    button = Button(master, text="Display",command=lambda:display_fun(master,first_features_var.get(),second_features_var.get(), classes_var.get(),algorithm_var.get(),
                                                                       eta_entry.get(),epochs_entry.get(),mse_entry.get(), bias_var.get()))
-    button.pack()
+    button.config(font=("Arial", 12), fg="white", bg="red")
+    button.grid(row=19,column=5)
     master.mainloop()
 
 
-def display_fun(first_features_var, second_features_var, classes_var, algorithms_var, eta_entry, epochs_entry, mse_entry, bias_var):
+def display_fun(TK,first_features_var, second_features_var, classes_var, algorithms_var, eta_entry, epochs_entry, mse_entry, bias_var):
     if first_features_var == second_features_var:
         messagebox.showerror('Features Error', 'Error: You must choose different features')
     elif classes_var == 0:
@@ -81,34 +89,37 @@ def display_fun(first_features_var, second_features_var, classes_var, algorithms
     elif algorithms_var == 0:
         messagebox.showerror('Algorithm Error', 'Error: You must choose an algorithm')
     else:
-        print(first_features_var)
-        print('---------------------------')
-        print(second_features_var)
-        print('---------------------------')
-        print(classes_var)
-        print('---------------------------')
-        print(algorithms_var)
-        print('---------------------------')
-        print(eta_entry)
-        print('---------------------------')
-        print(epochs_entry)
-        print('---------------------------')
-        print(mse_entry)
-        print('---------------------------')
-        print(bias_var)
         first_feature_radio = first_features_var
         second_feature_radio = second_features_var
         class_radio = classes_var
         algorithms_radio = algorithms_var
         if class_radio == 1 and algorithms_radio == 1:
-            Perceptron(first_feature_radio,second_feature_radio,'BOMBAY','CALI',eta_entry,epochs_entry,mse_entry,bias_var)
+            result = Perceptron(first_feature_radio,second_feature_radio,'BOMBAY','CALI',float(eta_entry),int(epochs_entry),float(mse_entry),int(bias_var))
+            accuracy_label = Label(TK, text=f'Accuracy = {result}')
+            accuracy_label.config(font=("Arial", 12), fg="blue")
+            accuracy_label.grid(row=20,column=5)
         elif class_radio == 2 and algorithms_radio == 1:
-            Perceptron(first_feature_radio,second_feature_radio,'BOMBAY','SIRA', eta_entry, epochs_entry, mse_entry,bias_var)
+            result = Perceptron(first_feature_radio,second_feature_radio,'BOMBAY','SIRA',float(eta_entry),int(epochs_entry),float(mse_entry),int(bias_var))
+            accuracy_label = Label(TK, text=f'Accuracy = {result}')
+            accuracy_label.config(font=("Arial", 10), fg="blue")
+            accuracy_label.grid(row=20, column=5)
         elif class_radio == 3 and algorithms_radio == 1:
-            Perceptron(first_feature_radio,second_feature_radio,'CALI','SIRA', eta_entry, epochs_entry, mse_entry,bias_var)
+            result = Perceptron(first_feature_radio,second_feature_radio,'CALI','SIRA',float(eta_entry),int(epochs_entry),float(mse_entry),int(bias_var))
+            accuracy_label = Label(TK, text=f'Accuracy = {result}')
+            accuracy_label.config(font=("Arial", 10), fg="blue")
+            accuracy_label.grid(row=20, column=5)
         elif class_radio == 1 and algorithms_radio == 2:
-            Adaline(first_feature_radio,second_feature_radio,'BOMBAY','CALI',eta_entry,epochs_entry,mse_entry,bias_var)
+            result = Adaline(first_feature_radio,second_feature_radio,'BOMBAY','CALI',float(eta_entry),int(epochs_entry),float(mse_entry),int(bias_var))
+            accuracy_label = Label(TK, text=f'Accuracy = {result}')
+            accuracy_label.config(font=("Arial", 10), fg="blue")
+            accuracy_label.grid(row=20, column=5)
         elif class_radio == 2 and algorithms_radio == 2:
-            Adaline(first_feature_radio,second_feature_radio,'BOMBAY','SIRA',eta_entry,epochs_entry,mse_entry,bias_var)
+            result = Adaline(first_feature_radio,second_feature_radio,'BOMBAY','SIRA',float(eta_entry),int(epochs_entry),float(mse_entry),int(bias_var))
+            accuracy_label = Label(TK, text=f'Accuracy = {result}')
+            accuracy_label.config(font=("Arial", 10), fg="blue")
+            accuracy_label.grid(row=20, column=5)
         elif class_radio == 3 and algorithms_radio == 2:
-            Adaline(first_feature_radio,second_feature_radio,'CALI','SIRA',eta_entry,epochs_entry,mse_entry,bias_var)
+            result = Adaline(first_feature_radio,second_feature_radio,'CALI','SIRA',float(eta_entry),int(epochs_entry),float(mse_entry),int(bias_var))
+            accuracy_label = Label(TK, text=f'Accuracy = {result}')
+            accuracy_label.config(font=("Arial", 10), fg="blue")
+            accuracy_label.grid(row=20, column=5)

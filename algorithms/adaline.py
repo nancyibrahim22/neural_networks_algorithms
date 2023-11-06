@@ -72,31 +72,48 @@ def Adaline(feature1, feature2, class1, class2, eta, epochs, mse_threshold, bias
         mse = (sum_of_error * (0.5))/len(error_list)
         # Checking if mse that we calculate <= or > mse threshold
         if mse <= mse_threshold:
-            x2 = (-last_weights[0][0])/last_weights[0][2]
-            x1 = (-last_weights[0][0])/last_weights[0][1]
-            X1, Y1 = 0, x2
-            X2, Y2 = x1, 0
+            # x2 = (-last_weights[0][0])/last_weights[0][2]
+            # x1 = (-last_weights[0][0])/last_weights[0][1]
+            # X1, Y1 = 0, x2
+            # X2, Y2 = x1, 0
 
-            # Create a Matplotlib figure and axis
-            fig, ax = plt.subplots()
-
-            # Plot the line using the two points
-            ax.plot([X1, X2], [Y1, Y2], marker='o', color='b')
-
-            # Add labels for the points
-            ax.text(x1, Y1, f'({X1}, {Y1})', fontsize=12, verticalalignment='bottom')
-            ax.text(x2, Y2, f'({X2}, {Y2})', fontsize=12, verticalalignment='bottom')
-
-            # Set axis limits and labels
-            ax.set_xlabel('X-axis')
-            ax.set_ylabel('Y-axis')
-
-            # Show the plot
-            plt.grid()
-            plt.show()
+            # # Create a Matplotlib figure and axis
+            # fig, ax = plt.subplots()
+            #
+            # # Plot the line using the two points
+            # ax.plot([X1, X2], [Y1, Y2], marker='o', color='b')
+            #
+            # # Add labels for the points
+            # ax.text(x1, Y1, f'({X1}, {Y1})', fontsize=12, verticalalignment='bottom')
+            # ax.text(x2, Y2, f'({X2}, {Y2})', fontsize=12, verticalalignment='bottom')
+            #
+            # # Set axis limits and labels
+            # ax.set_xlabel('X-axis')
+            # ax.set_ylabel('Y-axis')
+            #
+            # # Show the plot
+            # plt.grid()
+            # plt.show()
             break
         else:
             continue
+    X = np.linspace(min(x_train_scaled[:, 0]), max(x_train_scaled[:, 0]), 100)
+    Y = -(weights[0][1] * X + weights[0][0]) / weights[0][2]
+
+    # Calculate the corresponding x2 values using the decision boundary equation
+
+    # Create a scatter plot of the points of both classes
+    class1_points = x_train_scaled[yTrain.flatten() == -1]
+    class2_points = x_train_scaled[yTrain.flatten() == 1]
+
+    plt.scatter(class1_points[:, 0], class1_points[:, 1], label=class1)
+    plt.scatter(class2_points[:, 0], class2_points[:, 1], label=class2)
+    plt.plot(X, Y, color='red', label='Decision Boundary')
+
+    plt.xlabel('Feature 1')
+    plt.ylabel('Feature 2')
+    plt.legend()
+    plt.show()
 
     # Testing the data
     for k in range(len(Xtest)):

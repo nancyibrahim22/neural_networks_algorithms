@@ -2,6 +2,7 @@ import numpy as np
 from utils.preprocessing import *
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
 
 def signum(x):
     if x < 0:
@@ -32,15 +33,18 @@ def Perceptron(feature1, feature2, class1, class2, eta, epochs, mse_threshold,bi
 
 
     X_test = test_df.iloc[:, [feature1, feature2]].values
+    scaler = StandardScaler()
+    x_train_scaled = scaler.fit_transform(X_train)
+    x_test_scaled = scaler.fit_transform(X_test)
 
     if (bias == 1):
-        X = np.c_[np.ones((X_train.shape[0], 1)), X_train]
-        Xtest = np.c_[np.ones((X_test.shape[0], 1)), X_test]
+        X = np.c_[np.ones((x_train_scaled.shape[0], 1)), x_train_scaled]
+        Xtest = np.c_[np.ones((x_test_scaled.shape[0], 1)), x_test_scaled]
         # print('X after scaled: ',X)
         # print('--------------------------------')
     else:
-        X = np.c_[np.zeros((X_train.shape[0], 1)), X_train]
-        Xtest = np.c_[np.zeros((X_test.shape[0], 1)), X_test]
+        X = np.c_[np.zeros((x_train_scaled.shape[0], 1)), x_train_scaled]
+        Xtest = np.c_[np.zeros((x_test_scaled.shape[0], 1)), x_test_scaled]
         # print('X after scaled: ', X)
         # print('--------------------------------')
 
@@ -60,15 +64,15 @@ def Perceptron(feature1, feature2, class1, class2, eta, epochs, mse_threshold,bi
                 continue
     #############
 
-    X = np.linspace(min(X_train[:, 0]), max(X_train[:, 0]), 100)
+    X = np.linspace(min(x_train_scaled[:, 0]), max(x_train_scaled[:, 0]), 100)
     Y =-(weights[0][1] * X + weights[0][0]) / weights[0][2]
 
     # Calculate the corresponding x2 values using the decision boundary equation
 
 
     # Create a scatter plot of the points of both classes
-    class1_points = X_train[yTrain.flatten() == -1]
-    class2_points = X_train[yTrain.flatten() == 1]
+    class1_points = x_train_scaled[yTrain.flatten() == -1]
+    class2_points = x_train_scaled[yTrain.flatten() == 1]
 
     plt.scatter(class1_points[:, 0], class1_points[:, 1], label=class1)
     plt.scatter(class2_points[:, 0], class2_points[:, 1], label=class2)

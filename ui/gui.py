@@ -101,25 +101,25 @@ def display_fun(TK,first_features_var, second_features_var, classes_var, algorit
         elif class_radio == 2 and algorithms_radio == 1:
             result = Perceptron(first_feature_radio,second_feature_radio,'BOMBAY','SIRA',float(eta_entry),int(epochs_entry),float(mse_entry),int(bias_var))
             accuracy_label = Label(TK, text=f'Accuracy = {result}')
-            accuracy_label.config(font=("Arial", 10), fg="blue")
+            accuracy_label.config(font=("Arial", 12), fg="blue")
             accuracy_label.grid(row=20, column=5)
         elif class_radio == 3 and algorithms_radio == 1:
             result = Perceptron(first_feature_radio,second_feature_radio,'CALI','SIRA',float(eta_entry),int(epochs_entry),float(mse_entry),int(bias_var))
             accuracy_label = Label(TK, text=f'Accuracy = {result}')
-            accuracy_label.config(font=("Arial", 10), fg="blue")
+            accuracy_label.config(font=("Arial", 12), fg="blue")
             accuracy_label.grid(row=20, column=5)
         elif class_radio == 1 and algorithms_radio == 2:
             result = Adaline(first_feature_radio,second_feature_radio,'BOMBAY','CALI',float(eta_entry),int(epochs_entry),float(mse_entry),int(bias_var))
             accuracy_label = Label(TK, text=f'Accuracy = {result}')
-            accuracy_label.config(font=("Arial", 10), fg="blue")
+            accuracy_label.config(font=("Arial", 12), fg="blue")
             accuracy_label.grid(row=20, column=5)
         elif class_radio == 2 and algorithms_radio == 2:
             result = Adaline(first_feature_radio,second_feature_radio,'BOMBAY','SIRA',float(eta_entry),int(epochs_entry),float(mse_entry),int(bias_var))
             accuracy_label = Label(TK, text=f'Accuracy = {result}')
-            accuracy_label.config(font=("Arial", 10), fg="blue")
+            accuracy_label.config(font=("Arial", 12), fg="blue")
             accuracy_label.grid(row=20, column=5)
         elif class_radio == 3 and algorithms_radio == 2:
             result = Adaline(first_feature_radio,second_feature_radio,'CALI','SIRA',float(eta_entry),int(epochs_entry),float(mse_entry),int(bias_var))
             accuracy_label = Label(TK, text=f'Accuracy = {result}')
-            accuracy_label.config(font=("Arial", 10), fg="blue")
+            accuracy_label.config(font=("Arial", 12), fg="blue")
             accuracy_label.grid(row=20, column=5)

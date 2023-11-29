@@ -13,11 +13,10 @@ def Backpropagation(hidden_layer_number, neurons_list, eta_entry, epochs_entry, 
 
     x_test_scaled = scaler.fit_transform(x_test)
     encoder = OneHotEncoder(sparse=False)
-    # custom_encoding = {'BOMBAY': 0, 'CALI': 1,'SIRA':2}
+
     y_train= y_train.values.reshape(-1, 1)
     y_test=y_test.values.reshape(-1,1)
-    # y_encoded = y_train.map(custom_encoding)
-    # Fit and transform the 'Category' column
+
     Y_Train = encoder.fit_transform(y_train)
     Y_Test = encoder.fit_transform(y_test)
 
@@ -32,7 +31,7 @@ def Backpropagation(hidden_layer_number, neurons_list, eta_entry, epochs_entry, 
         else:
             generated_weights.append(CreateWeights(neurons_list[i], neurons_list[i-1]))
 
-
+    # print(generated_weights)
     for epoch in range(epochs_entry):
         for pp in range(90):
             Net_answers = []
@@ -45,9 +44,33 @@ def Backpropagation(hidden_layer_number, neurons_list, eta_entry, epochs_entry, 
                     Net_answers.append(X)
                 else:
                     Net_answers.append(CalcNet(i, neurons_list[i], Net_answers[i-1], activation_var))
-            k = np.flip(backward(activation_var, Y_Train[pp], Net_answers))
+            k = backward(activation_var, Y_Train[pp], Net_answers)
+            updateWeigths(x_train_scaled[pp],Net_answers, eta_entry, k)
 
-            updateWeigths(Net_answers, eta_entry, k)
+    # Net_answers = []
+    # for i in range(hidden_layer_number+1):
+    #     if i ==0:
+    #         Net_answers.append(CalcNet(i,neurons_list[i],x_train_scaled[0],activation_var))
+    #     elif i==hidden_layer_number:
+    #          X=CalcNet(i,3,Net_answers[i-1], activation_var)
+    #
+    #          Net_answers.append(X)
+    #     else:
+    #          Net_answers.append(CalcNet(i, neurons_list[i], Net_answers[i-1], activation_var))
+    #
+    # k = backward(activation_var, Y_Train[0], Net_answers)
+    # print(x_train_scaled[0])
+    # print(generated_weights)
+    # print(Net_answers)
+    # print('++++++++++')
+    # updateWeigths(x_train_scaled[0],Net_answers, eta_entry, k)
+    # print(generated_weights)
+    # print('++++++++++')
+    #
+    # print('++++++++++')
+    # print(k)
+    # print('++++++++++')
+
     acc = 0
     for o in range(60):
         Net_answers2 = []
@@ -69,19 +92,15 @@ def Backpropagation(hidden_layer_number, neurons_list, eta_entry, epochs_entry, 
                 Net_answers2.append(CalcNet(i, neurons_list[i], Net_answers2[i - 1], activation_var))
         faloga=True
         for i in range(3):
-            if Y_Test[o][i]==Net_answers2[-1][i]:
+            if Y_Test[o][i]==X[i]:
                 faloga=True
             else:
                 faloga=False
         if faloga:
             acc+=1
         print(X)
+
     print(acc)
-
-
-
-
-
 
 def CreateWeights(neurons_count, previous_number_of_neurons):
 
@@ -102,7 +121,7 @@ def CalcNet(hiden_layer_index, number_of_neurons, previous_layer_neurons_output,
         if activation == 1:
             sum1 = 1/(1+math.exp(-sum1))
         if activation == 2:
-            sum1 = (1-math.exp(-sum1))/(1+math.exp(-sum1))
+            sum1 = np.tanh(sum1)
         net_answer.append(sum1)
     return net_answer
 
@@ -115,7 +134,7 @@ def backward(activation, Y, Net_answers):
         sigma_output=[]
         for i in range(3):
             sigma_output.append(((Y[i] - Net_answers[-1][i]) * Net_answers[-1][i]*(1-Net_answers[-1][i])))
-        result.append(sigma_output)
+        result.insert(0,sigma_output)
         for i in reversed(range(len(Net_answers))):
             if i == len(Net_answers)-1:
                 continue
@@ -124,15 +143,44 @@ def backward(activation, Y, Net_answers):
                 listaya = []
                 for araf in range(len(generated_weights[i])):
                     for k in range(len(generated_weights[i+1])):
-                        sum1 += sigma_output[k]*generated_weights[i+1][k][araf]
+                        sum1 += result[0][k]*generated_weights[i+1][k][araf]
                     net = sum1 * Net_answers[i][araf]*(1-Net_answers[i][araf])
                     listaya.append(net)
-                result.append(listaya)
+                result.insert(0,listaya)
+    elif activation==2:
+        sigma_output = []
+        for i in range(3):
+            sigma_output.append(((Y[i] - Net_answers[-1][i]) * (1 - (Net_answers[-1][i]**2))))
+        result.insert(0, sigma_output)
+        for i in reversed(range(len(Net_answers))):
+            if i == len(Net_answers) - 1:
+                continue
+            else:
+                sum1 = 0
+                listaya = []
+                for araf in range(len(generated_weights[i])):
+                    for k in range(len(generated_weights[i + 1])):
+                        sum1 += result[0][k] * generated_weights[i + 1][k][araf]
+                    net = sum1 * (1 - (Net_answers[i][araf]**2))
+                    listaya.append(net)
+                result.insert(0, listaya)
+
+
     return result
 
 
-def updateWeigths(Net_answers, eta, result_of_backward):
+def updateWeigths(X,Net_answers, eta, result_of_backward):
     for i in range(len(generated_weights)):
         for j in range(len(generated_weights[i])):
             for k in range(len(generated_weights[i][j])):
-                generated_weights[i][j][k]+= eta * result_of_backward[i][j] * Net_answers[i][j]
+                if i != 0:
+                    l=result_of_backward[i][j]
+                    # print(i)
+                    # print(j)
+                    # print(k)
+                    q=Net_answers[i-1][k]
+                    generated_weights[i][j][k] += eta * l * q
+                else:
+                    generated_weights[i][j][k] += eta * result_of_backward[i][j]*X[k]
+
+

@@ -1,4 +1,4 @@
 from ui.gui import *
 
 # main_GUI()
-Backpropagation(3,[10,7,4],0.1,47,1,1,2)
+Backpropagation(2,[7,4],0.1,50,1,1,1)

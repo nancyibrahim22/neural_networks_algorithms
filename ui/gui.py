@@ -10,7 +10,7 @@ def main_GUI():
     master = Tk()
     master.title("Neural Networks Tasks")
     master.geometry("500x800")
-    title_label = Label(master, text="Neural Networks Task 1")
+    title_label = Label(master, text="Neural Networks Tasks")
     title_label.config(font=("Arial", 14), fg="red")
     title_label.grid(row=1, column=5)
 
@@ -194,15 +194,12 @@ def display_fun(TK, first_features_var, second_features_var, classes_var, algori
         elif activation_var == 0:
             messagebox.showerror('Activation function Error', 'Error: You must choose activation function')
         else:
-            print("num_hidden_layers", num_hidden_layers)
-            print("neurons_in_layers", neurons_in_layers)
-            print("eta_entry", eta_entry)
-            print("epochs_entry", epochs_entry)
-            print("bias_var", bias_var)
-            print("activation_var", activation_var)
-            result = Backpropagation(num_hidden_layers, neurons_in_layers, float(eta_entry),
+            test_result,train_result = Backpropagation(num_hidden_layers, neurons_in_layers, float(eta_entry),
                              int(epochs_entry), int(bias_var), activation_var)
-            accuracy_label = Label(TK, text=f'Accuracy = {result}')
+            accuracy_label = Label(TK, text=f'Testing accuracy = {test_result}')
             accuracy_label.config(font=("Arial", 12), fg="blue")
             accuracy_label.grid(row=27, column=5)
+            accuracy_train_label = Label(TK, text=f'Training accuracy = {train_result}')
+            accuracy_train_label.config(font=("Arial", 12), fg="blue")
+            accuracy_train_label.grid(row=28, column=5)
 

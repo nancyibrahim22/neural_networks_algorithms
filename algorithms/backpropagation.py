@@ -188,7 +188,7 @@ def Backpropagation(hidden_layer_number, neurons_list, eta_entry, epochs_entry, 
     plt.title('Confusion Matrix')
     plt.show()
 
-    return round(testing_accuracy*100, 2)
+    return round(testing_accuracy*100, 2),round(acc_train*100,2)
 
 
 def CreateWeights(neurons_count, previous_number_of_neurons, bias):

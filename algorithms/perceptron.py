@@ -15,7 +15,7 @@ def signum(x):
 
 def Perceptron(feature1, feature2, class1, class2, eta, epochs, mse_threshold,bias):
 
-    epochs= int(epochs)
+    epochs = int(epochs)
     eta = float(eta)
     weights = np.random.uniform(low=0.1, high=0.5, size=(1, 3))
 
@@ -114,7 +114,7 @@ def Perceptron(feature1, feature2, class1, class2, eta, epochs, mse_threshold,bi
     plt.show()
 
     print(f"Acc:{accuracy*100}% ")
-    return accuracy
+    return round(accuracy*100, 2)
 
 
 

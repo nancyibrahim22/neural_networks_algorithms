@@ -109,7 +109,7 @@ def Adaline(feature1, feature2, class1, class2, eta, epochs, mse_threshold, bias
     if bias == 1:
         Y_plot =(-(weights[0][1] * X_plot + weights[0][0]) / weights[0][2])
     elif bias == 0:
-        Y_plot = -(weights[0][1] * X_plot ) / weights[0][2]
+        Y_plot = -(weights[0][1] * X_plot) / weights[0][2]
 
 
 
@@ -126,6 +126,6 @@ def Adaline(feature1, feature2, class1, class2, eta, epochs, mse_threshold, bias
     plt.legend()
     plt.show()
 
-    return accuracy
+    return round(accuracy*100, 2)
 
 

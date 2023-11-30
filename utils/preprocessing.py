@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 def DataSplit(class1,class2):
     # reading dataset from excel
@@ -101,4 +102,4 @@ def merge_classes_backpropagation(x_one_train,x_one_test, y_one_train, y_one_tes
     x_test = pd.concat(x_test_frames)
     y_test_frames = [y_one_test, y_two_test, _y_three_test]
     y_test = pd.concat(y_test_frames)
-    return x_train,x_test,y_train,y_test
+    return x_train, x_test, y_train, y_test

@@ -4,11 +4,12 @@ import math
 from sklearn.preprocessing import StandardScaler,OneHotEncoder
 import matplotlib.pyplot as plt
 
-generated_weights = []
+
 
 
 def Backpropagation(hidden_layer_number, neurons_list, eta_entry, epochs_entry, bias_var, activation_var):
-
+    global generated_weights
+    generated_weights = []
     x_train, x_test, y_train, y_test = data_split_back_propagation()
     # scaling data
     scaler = StandardScaler()

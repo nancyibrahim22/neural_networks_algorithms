@@ -18,6 +18,7 @@ def Backpropagation(hidden_layer_number, neurons_list, eta_entry, epochs_entry, 
 
     # encoding output using one hot encoding
     encoder = OneHotEncoder(sparse=False)
+    print()
     y_train = y_train.values.reshape(-1, 1)
     y_test = y_test.values.reshape(-1, 1)
     Y_Train = encoder.fit_transform(y_train)
